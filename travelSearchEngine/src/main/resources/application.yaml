@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: travelSearchEngine
+
+server:
+  port: 8081
