@@ -9,11 +9,15 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(TravelNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleTravelNotFound(
-            TravelNotFoundException exception
+    @ExceptionHandler(SupplierException.class)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public Map<String, Object> handleSupplierException(
+            SupplierException exception
     ) {
-        return Map.of("error", exception.getMessage());
+        return Map.of(
+                "error", exception.getMessage(),
+                "supplier", exception.getSupplier(),
+                "retryable", exception.isRetryable()
+        );
     }
 }
