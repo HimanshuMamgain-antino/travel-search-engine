@@ -22,8 +22,8 @@ public class TripjackSupplier implements FlightSupplier {
 
     public TripjackSupplier(
             WebClient.Builder builder,
-            @Value("${TRIPJACK_BASE_URL}") String baseUrl,
-            @Value("${TRIPJACK_API_KEY}") String apiKey
+            @Value("${tripjack.base-url}") String baseUrl,
+            @Value("${tripjack.api-key}") String apiKey
 
     ) {
         this.apiKey = apiKey;

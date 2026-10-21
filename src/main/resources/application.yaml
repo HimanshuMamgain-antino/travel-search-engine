@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: travelSearchEngine
+  config:
+    # Loads KEY=value pairs from .env in the working directory, if present
+    import: optional:file:.env[.properties]
+
+server:
+  port: 8081
+
+tripjack:
+  base-url: ${TRIPJACK_BASE_URL:https://apitest.tripjack.com}
+  api-key: ${TRIPJACK_API_KEY:}
