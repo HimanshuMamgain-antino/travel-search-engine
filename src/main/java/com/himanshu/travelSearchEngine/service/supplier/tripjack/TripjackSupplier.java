@@ -1,10 +1,14 @@
 package com.himanshu.travelSearchEngine.service.supplier.tripjack;
 
+import com.himanshu.travelSearchEngine.dto.Flight;
 import com.himanshu.travelSearchEngine.dto.FlightSearchRequest;
 import com.himanshu.travelSearchEngine.exception.SupplierException;
 import com.himanshu.travelSearchEngine.service.supplier.FlightSupplier;
 import com.himanshu.travelSearchEngine.service.supplier.SupplierCode;
 import com.himanshu.travelSearchEngine.service.supplier.tripjack.dto.TripjackSearchRequest;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -32,7 +36,7 @@ public class TripjackSupplier implements FlightSupplier {
     }
 
     @Override
-    public JsonNode search(FlightSearchRequest request) {
+    public List<Flight> search(FlightSearchRequest request) {
         TripjackSearchRequest tripjackSearchRequest = TripjackRequestMapper.map(request);
 
         try {
@@ -46,12 +50,14 @@ public class TripjackSupplier implements FlightSupplier {
                     .bodyToMono(JsonNode.class)
                     .block();
 
-            return response;
+            return TripjackResponseMapper.map(response);
         } catch (WebClientResponseException exception) {
             throw new SupplierException(
                     "TRIPJACK",
                     "Tripjack request failed: " + exception.getStatusCode(),
-                    exception.getStatusCode().is5xxServerError());
+                    exception.getStatusCode().is5xxServerError(),
+                    exception.getStatusCode().value(),
+                    exception.getResponseBodyAs(JsonNode.class));
         }
     }
 }
