@@ -1,13 +1,11 @@
 package com.himanshu.travelSearchEngine.service.supplier;
 
 import com.himanshu.travelSearchEngine.dto.FlightSearchRequest;
-import com.himanshu.travelSearchEngine.dto.FlightSearchResponse;
-
-import java.util.List;
+import tools.jackson.databind.JsonNode;
 
 public interface FlightSupplier {
 
     SupplierCode getCode();
 
-    List<FlightSearchResponse> search(FlightSearchRequest request);
+    JsonNode search(FlightSearchRequest request);
 }

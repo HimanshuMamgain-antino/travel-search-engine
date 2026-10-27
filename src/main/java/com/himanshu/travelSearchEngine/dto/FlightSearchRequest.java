@@ -1,5 +1,6 @@
 package com.himanshu.travelSearchEngine.dto;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ public record FlightSearchRequest(
         String destination,
 
         @NotNull(message = "Departure date is required")
+        @FutureOrPresent(message = "Departure date must be today or in the future")
         LocalDate departureDate,
 
         @NotNull(message = "Adults is required")

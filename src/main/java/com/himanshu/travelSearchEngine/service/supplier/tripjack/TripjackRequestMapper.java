@@ -4,6 +4,7 @@ import com.himanshu.travelSearchEngine.dto.FlightSearchRequest;
 import com.himanshu.travelSearchEngine.service.supplier.tripjack.dto.TripjackSearchRequest;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TripjackRequestMapper {
     public static TripjackSearchRequest map(FlightSearchRequest request) {
@@ -13,8 +14,8 @@ public class TripjackRequestMapper {
 
                         new TripjackSearchRequest.PaxInfo(
                                 String.valueOf(request.adults()),
-                                String.valueOf(request.children()),
-                                String.valueOf(request.infants())
+                                String.valueOf(Objects.requireNonNullElse(request.children(), 0)),
+                                String.valueOf(Objects.requireNonNullElse(request.infants(), 0))
                         ),
 
                         List.of(

@@ -4,9 +4,16 @@ spring:
   config:
     # Loads KEY=value pairs from .env in the working directory, if present
     import: optional:file:.env[.properties]
+  http:
+    codecs:
+      # Supplier search responses run to several MB; WebClient's default is 256KB
+      max-in-memory-size: 10MB
 
 server:
   port: 8081
+  error:
+    include-stacktrace: never
+
 
 tripjack:
   base-url: ${TRIPJACK_BASE_URL:https://apitest.tripjack.com}
